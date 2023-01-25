@@ -1,0 +1,78 @@
+# pronghorn
+
+#ssh
+ssh clairewilliams@pronghorn.rc.unr.edu
+
+# storage quota for my personal storage (50Gb)
+mmlsquota -j home.clairewilliams --block-size 1G pronghorn-0
+
+
+#you can create a conda env in the lizard association storage space
+#can create an apps or something and put envs in there
+
+# node information
+# s3 sponsored is available to everyone
+# s6 test also 15 minutes max, 2 nodes
+# s5 partition has a max run time of 2 weeks and 53 nodes in the partition 
+
+# specify your cores not your nodes
+# each node is 32 cores (because of hyperthreading it will say 64)
+
+# use sbatch slurm scripts to submit jobs
+# you can also write your sbatch scripts in python
+# log in nodes ok for small stuff restricted to 2cpu 
+# you can get an interactive node via an srun command 
+#interactive terminal request example that uses all 32 cores of a node for 5 minutes
+srun --nodes=1 --partition cpu-core-0 --account cpu-s5-lizard_project-0 --mail-user=williams.claire.e@gmail.com --mail-type=BEGIN --time=00:05:00 --pty bash
+
+
+# there are many benefits to using containers - can make it, convert to file, and then upload to pronghorn
+# singularity is installed / apptainer is the new version 
+
+# lizard project association storage
+cd /data/gpfs/assoc/lizard_project	
+
+# nodes available to lizard project
+cpu-s3-sponsored-0	cpu-s3-sponsored-0   # s3 sponsored is available to everyone
+
+
+gpu-s5-lizard_project-0	 gpu-core-0 # 
+
+
+cpu-s5-lizard_project-0	 cpu-core-0 # s5 partition has a max run time of 2 weeks and 53 nodes in the partition 
+
+
+#tmux is also installed
+# to install tmux
+sudo yum install tmux
+
+# create a new tmux session
+tmux new -s name.of.session 
+
+
+ctrl-b and then keys to do stuff: 
+% - split screen vertically
+c - creates a new window
+w - Choose window from a list
+0 - Switch to window 0 (by number )
+o - switch between panes
+" - splt screen horizontally
+n - next window
+p - previous window
+x - Close the current pane
+
+# detach from session
+ctrl-b d 
+
+You can then leave the SSH session 
+# list currently running sessions 
+tmux list-sessions
+
+# reattach
+tmux attach -t SessionName
+
+# installations in lizard project storage: 
+# conda
+# qiime
+# wget
+
